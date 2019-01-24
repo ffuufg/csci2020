@@ -2,8 +2,16 @@ plugins {
 	id 'java'
 }
 
+repositories {
+	jcenter()
+}
+
+dependencies{
+	implementation 'org.apache.commons:commons-csv:1.6'
+}
+
 jar {
 	manifest {
-		attributes 'Main-Class': 'csci2020.lab02.SimpleTest'
+		attributes 'Main-Class': 'csci2020.lab02.CSVTest'
 	}
 }
