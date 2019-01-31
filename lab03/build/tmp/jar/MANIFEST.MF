@@ -1,3 +1,5 @@
 Manifest-Version: 1.0
 Main-Class: csci2020.lab03.CSVTest
+Implementation-Title: Lab 3 CSV Test
+Implementation-Version: 1.0
 
