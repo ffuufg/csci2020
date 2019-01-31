@@ -1,0 +1,25 @@
+plugins {
+	id 'java'
+}
+
+repositories {
+	jcenter()
+}
+
+dependencies{
+	implementation 'org.apache.commons:commons-csv:1.6'
+}
+
+jar {
+	manifest {
+		attributes 'Main-Class': 'csci2020.lab03.CSVTest'
+	}
+}
+
+task(run, dependsOn: 'classes', type: JavaExec) {
+
+	main = 'csci2020.lab03.CSVTest'
+
+	classpath = sourceSets.main.runtimeClasspath
+
+}
