@@ -1,3 +1,5 @@
+package csci2020.lab04;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -31,22 +33,43 @@ public class Main extends Application {
           gp.setPadding(new Insets(10,10,10,10));
 
           // Set our variables
-          Label textLabel = new Label("Username:c");
-          _text1 = new TextField();
-          _text1.setPromptText("Prompt text for text1");
+          Label textLabel = new Label("Username:");
+          _user = new TextField();
+          _user.setPromptText("Prompt text for username");
 
           gp.add(textLabel, 0,0);
-          gp.add(_text1, 1, 0);
+          gp.add(_user, 1, 0);
 
           Label pwLabel = new Label("Password: ");
           _pw1 = new PasswordField();
           gp.add(pwLabel, 0, 1);
           gp.add(_pw1, 1, 1);
 
+          Label nameLabel = new Label("Full name:");
+          _name = new TextField();
+          _name.setPromptText("Prompt text for full name");
+
+          gp.add(nameLabel, 0, 2);
+          gp.add(_name, 1, 2);
+
+          Label emailLabel = new Label("Email:");
+          _email = new TextField();
+          _email.setPromptText("Prompt text for email");
+
+          gp.add(emailLabel, 0, 3);
+          gp.add(_email, 1, 3);
+
+          Label phoneLabel = new Label("Phone:");
+          _phone = new TextField();
+          _phone.setPromptText("Prompt text for phone");
+
+          gp.add(phoneLabel, 0, 4);
+          gp.add(_phone, 1, 4);
+
           Label dateLabel = new Label("Date: ");
           _dp1 = new DatePicker();
-          gp.add(dateLabel, 0, 2);
-          gp.add(_dp1, 1, 2);
+          gp.add(dateLabel, 0, 5);
+          gp.add(_dp1, 1, 5);
 
           Label btnLabel = new Label("Button!");
           _btn1 = new Button("Click me!");
@@ -54,15 +77,15 @@ public class Main extends Application {
           // Set pressing "enter" to submit
           _btn1.setDefaultButton(true);
 
-          gp.add(btnLabel, 0, 3);
-          gp.add(_btn1, 1, 3);
+          gp.add(btnLabel, 0, 6);
+          gp.add(_btn1, 1, 6);
 
 
           _ta = new TextArea();
           _ta.setDisable(true);
           _ta.appendText("Appended text will show here:\n");
 
-          gp.add(_ta, 0, 5, 3, 5);
+          gp.add(_ta, 0, 8, 8, 8);
 
           // Button handler
           _btn1.setOnAction(new EventHandler<ActionEvent>() {
@@ -70,13 +93,22 @@ public class Main extends Application {
               public void handle(ActionEvent event) {
                   // Append to our fake console
 
-                  _ta.appendText(_text1.getText() + "\n" +
+                  _ta.appendText(_user.getText() + "\n" +
                                  _pw1.getText() + "\n" +
+                                 _name.getText() + "\n" +
+                                 _email.getText() + "\n" +
+                                 _phone.getText().substring(0,3) + "-" + 
+                                 _phone.getText().substring(3,6) + "-" +
+                                 _phone.getText().substring(6) + "\n" +
                                  _dp1.getValue() + "\n");
 
+
                   // Clear previous inputs
-                  _text1.clear();
+                  _user.clear();
                   _pw1.clear();
+                  _name.clear();
+                  _email.clear();
+                  _phone.clear();
               }
           });
           Scene scene = new Scene(gp, 500, 300);
