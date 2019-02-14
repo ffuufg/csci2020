@@ -1,5 +1,8 @@
 package csci2020.lab05;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class DataSource {
 
 	public static ObservableList<StudentRecord> getAllMarks() {
@@ -20,5 +23,5 @@ public class DataSource {
 
 		return marks;
 	}
-	
+
 }
