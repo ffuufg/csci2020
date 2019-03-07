@@ -22,10 +22,10 @@ import javafx.stage.Stage;
 public class WeatherChart extends Application {
 
 	public void start(Stage primaryStage) {
-		
+
 		HashMap<String, Integer> m = new HashMap<String, Integer>();
 		File f = new File("weatherwarnings-2015.csv");
-		
+
 		try {
 			Scanner in = new Scanner(f);
 			String str = "";
@@ -39,22 +39,22 @@ public class WeatherChart extends Application {
 				if(m.get(str) == null) m.put(str, 1);
 				else m.put(str, m.get(str)+1);
 			}
-			
+
 //			System.out.println(m);
-			
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 		HBox hboxPane = new HBox(); //For all elements
-		
+
 		GridPane legendGridPane = new GridPane(); //For legend
-		
+
 //		for(String key: m.keySet()) {
 //			//Iterates through all keys, for legend if you want (optional)
 //			System.out.println(key);
 //		}
-		
+
 		ArrayList<Color> colors = new ArrayList<Color>();
 		for(int i = 0;i < 25;i++) {
 			for(int j = 0;j < 25;j++) {
@@ -64,33 +64,62 @@ public class WeatherChart extends Application {
 			}
 		}
 		Collections.shuffle(colors);
-		
+
 		int iterCount = 0;
-		
+
 		for(HashMap.Entry<String, Integer> entry: m.entrySet()) {
 			//Iterates through all keys and all values for legend & chart
 			System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
-			
+
 			Rectangle r = new Rectangle(50, 20);
 			r.setFill(colors.get(iterCount % 15625)); //15625 colours
-			
+
 			Text t = new Text(entry.getKey());
-			
+
 			legendGridPane.add(r, 0, iterCount);
 			legendGridPane.add(t, 1, iterCount);
-			
+
 			iterCount++;
-			
+
 		}
-		
+
+		HBox fin = new HBox();
+		fin.add(legendGridPane);
+
+		Pane p = new Pane();
+		double lastAngle = 0, lastLength = 0;
+		int count  = 0;
+		for(int i = 0;i < m.size();i++) {
+			count = entry.getValue(i);
+		}
+
+		for(int i = 0;i < m.size();i++) {
+			Arc young = new Arc();
+			young.setStroke(colors[i]);
+			young.setFill(colors[i]);
+			young.centerXProperty().bind(p.widthProperty().divide(2));
+			young.centerYProperty().bind(p.heightProperty().divide(2));
+			young.setRadiusX(50.f);
+			young.setRadiusY(50.f);
+			young.setStartAngle(lastAngle + lastLength);
+			young.setLength(entry.getValue(i)/count * 360);
+			young.setType(ArcType.ROUND);
+
+			p.getChildren().add(young);
+
+			lastAngle = young.getStartAngle();
+			lastLength = young.getLength();
+		}
+		fin.add(p);
+
 		Scene s = new Scene(legendGridPane);
 		primaryStage.setScene(s);
 		primaryStage.show();
-		
+
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
+
 }
