@@ -1,0 +1,23 @@
+plugins {
+	id 'java'
+}
+
+repositories {
+	jcenter()
+}
+
+jar {
+	manifest {
+		attributes 'Main-Class': 'csci2020.lab07.WeatherChart',
+		'Implementation-Title': 'Lab 7',
+		'Implementation-Version': 1.0
+	}
+}
+
+task(run, dependsOn: 'classes', type: JavaExec) {
+
+	main = 'csci2020.lab07.WeatherChart'
+
+	classpath = sourceSets.main.runtimeClasspath
+
+}
