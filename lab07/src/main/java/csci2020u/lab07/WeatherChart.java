@@ -103,7 +103,7 @@ public class WeatherChart extends Application {
 			young.setRadiusX(50.f);
 			young.setRadiusY(50.f);
 			young.setStartAngle(lastAngle + lastLength);
-			young.setLength(entry.getValue()/count * 360);
+			young.setLength(entry.getValue()/(double)(count) * 360);
 			young.setType(ArcType.ROUND);
 
 			p.getChildren().add(young);
