@@ -13,8 +13,11 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Arc;
+import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -45,8 +48,6 @@ public class WeatherChart extends Application {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-
-		HBox hboxPane = new HBox(); //For all elements
 
 		GridPane legendGridPane = new GridPane(); //For legend
 
@@ -84,35 +85,36 @@ public class WeatherChart extends Application {
 		}
 
 		HBox fin = new HBox();
-		fin.add(legendGridPane);
 
 		Pane p = new Pane();
 		double lastAngle = 0, lastLength = 0;
-		int count  = 0;
-		for(int i = 0;i < m.size();i++) {
-			count = entry.getValue(i);
+		int count = 0;
+		for(int i: m.values()) {
+			count += i;
 		}
 
-		for(int i = 0;i < m.size();i++) {
+		iterCount = 0;
+		for(HashMap.Entry<String, Integer> entry: m.entrySet()) {
 			Arc young = new Arc();
-			young.setStroke(colors[i]);
-			young.setFill(colors[i]);
+			young.setStroke(colors.get(iterCount % 15625));
+			young.setFill(colors.get(iterCount % 15625));
 			young.centerXProperty().bind(p.widthProperty().divide(2));
 			young.centerYProperty().bind(p.heightProperty().divide(2));
 			young.setRadiusX(50.f);
 			young.setRadiusY(50.f);
 			young.setStartAngle(lastAngle + lastLength);
-			young.setLength(entry.getValue(i)/count * 360);
+			young.setLength(entry.getValue()/count * 360);
 			young.setType(ArcType.ROUND);
 
 			p.getChildren().add(young);
 
 			lastAngle = young.getStartAngle();
 			lastLength = young.getLength();
+			iterCount++;
 		}
-		fin.add(p);
+		fin.getChildren().addAll(legendGridPane, p);
 
-		Scene s = new Scene(legendGridPane);
+		Scene s = new Scene(fin);
 		primaryStage.setScene(s);
 		primaryStage.show();
 
