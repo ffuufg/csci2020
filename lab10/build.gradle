@@ -1,0 +1,23 @@
+plugins {
+	id 'java'
+}
+
+repositories {
+	jcenter()
+}
+
+task(runServer, dependsOn: 'classes', type: JavaExec) {
+
+	main = 'csci2020.lab10.Server'
+
+	classpath = sourceSets.main.runtimeClasspath
+
+}
+
+task(runClient, dependsOn: 'classes', type: JavaExec) {
+
+	main = 'csci2020.lab10.Client'
+
+	classpath = sourceSets.main.runtimeClasspath
+
+}
